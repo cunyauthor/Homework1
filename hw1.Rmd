@@ -1,0 +1,55 @@
+---
+title: "HW1"
+author: "Ka Man Chan"
+date: "September 6, 2016"
+output: html_document
+---
+ 
+#Installing the packgage for MySQL
+install.packages("RMySQL")
+library(RMySQL)
+ 
+#Connect to the MySQL database
+mydb = dbConnect(MySQL(), user='root', password='Password1234', dbname='sys', host='localhost')
+ 
+#List the fields
+dbListFields(mydb, 'movies')
+ 
+rs = dbSendQuery(mydb, "select * from movies")
+ 
+#load records to data frame
+data = fetch(rs, n=-1)
+ 
+#Check the class of dataframe
+class(data)
+ 
+#Count Number of row
+nrow(data)
+ 
+#Count Number of column
+ncol(data)
+ 
+#Dimension
+dim(data)
+ 
+#Table format
+table(data)
+ 
+ 
+#Summarize the data
+summary(data)
+ 
+#plot the Boxplots
+boxplot(data$Rate)
+ 
+#Analyze the data through histogram
+hist(data$Rate, main="Histogram for Rate", xlab="Rate", border="blue", col="green",las=1, breaks=c(1, 2, 3, 4, 5))
+ 
+#Analyze the data through Scatterplots
+install.packages("ggplot2")
+library(ggplot2)
+ggplot(data,  aes(x=Movie_Name,y=Rate)) + geom_point(shape=1)
+
+ 
+ 
+ 
