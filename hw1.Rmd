@@ -2,54 +2,62 @@
 title: "HW1"
 author: "Ka Man Chan"
 date: "September 6, 2016"
-output: html_document
+output: word_document
 ---
- 
+
+
+
+
+
 #Installing the packgage for MySQL
+
+
+
+
+```{r}
 install.packages("RMySQL")
+install.packages("ggplot2")
 library(RMySQL)
- 
+library(ggplot2) 
+
 #Connect to the MySQL database
-mydb = dbConnect(MySQL(), user='root', password='Password1234', dbname='sys', host='localhost')
- 
+mydb = dbConnect(MySQL(), user='user1', password='Password1234', dbname='sys', host='localhost')
+
 #List the fields
 dbListFields(mydb, 'movies')
- 
-rs = dbSendQuery(mydb, "select * from movies")
- 
-#load records to data frame
-data = fetch(rs, n=-1)
- 
-#Check the class of dataframe
-class(data)
- 
-#Count Number of row
-nrow(data)
- 
-#Count Number of column
-ncol(data)
- 
-#Dimension
-dim(data)
- 
-#Table format
-table(data)
- 
- 
-#Summarize the data
-summary(data)
- 
-#plot the Boxplots
-boxplot(data$Rate)
- 
-#Analyze the data through histogram
-hist(data$Rate, main="Histogram for Rate", xlab="Rate", border="blue", col="green",las=1, breaks=c(1, 2, 3, 4, 5))
- 
-#Analyze the data through Scatterplots
-install.packages("ggplot2")
-library(ggplot2)
-ggplot(data,  aes(x=Movie_Name,y=Rate)) + geom_point(shape=1)
 
- 
- 
- 
+rs = dbSendQuery(mydb, "select * from movies")
+
+#load records to data frame
+Mydata = fetch(rs, n=-1)
+
+#Check the class of dataframe
+class(Mydata)
+
+#Count Number of row
+nrow(Mydata)
+
+
+#Count Number of column
+ncol(Mydata)
+
+
+#Dimension
+dim(Mydata)
+
+#Table format
+table(Mydata)
+
+
+#Summarize the data
+summary(Mydata)
+
+#plot the Boxplots
+boxplot(Mydata$Rate)
+
+#Analyze the data through histogram
+hist(Mydata$Rate, main="Histogram for Rate", xlab="Rate", border="blue", col="green",las=1, breaks=c(1, 2, 3, 4, 5)) 
+
+#Analyze the data through Scatterplots
+ggplot(Mydata, aes(x=Movie_Name,y=Rate)) + geom_point(shape=1)
+```
